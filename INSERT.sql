@@ -1,3 +1,4 @@
+-- ЗАДАНИЕ 1
 -- Жанры
 insert into genres (genre_name)
 values ('Rock');
@@ -412,6 +413,8 @@ values ('The Very Best of Celine Dion', 2015);
 insert into collections (collection_name, collection_year)
 values ('Hits! The Very Best Of Erasure', 2021);
 
+insert into collections (collection_name, collection_year)
+values ('GH', 2021);
 
 -- Заполняем промежуточную таблицу трек-коллекция
 insert into track_collection (track_id, collection_id) 
@@ -501,4 +504,16 @@ insert into track_collection (track_id, collection_id)
 values (
 (select track_id from tracks  where track_name = 'Breath of Life'), 
 (select collection_id from collections  where collection_name = 'Hits! The Very Best Of Erasure')
+);
+
+insert into track_collection (track_id, collection_id) 
+values (
+(select track_id from tracks  where track_name = 'Dark Is the Night for All'), 
+(select collection_id from collections  where collection_name = 'GH')
+);
+
+insert into track_collection (track_id, collection_id) 
+values (
+(select track_id from tracks  where track_name = 'Love to Hate You'), 
+(select collection_id from collections  where collection_name = 'GH')
 );
