@@ -8,7 +8,7 @@ limit 1;
 -- 2. Название треков, продолжительность которых не менее 3,5 минут.
 select track_name, track_duration 
 from tracks 
-where track_duration >3.5*60;
+where track_duration >=3.5*60;
 
 -- 3. Названия сборников, вышедших в период с 2018 по 2020 год включительно.
 select collection_name 
@@ -22,8 +22,10 @@ where musician_name not like ('% %');
 
 -- 5. Название треков, которые содержат слово «мой» или «my».
 select track_name 
-from tracks 
-where upper(track_name) like ('%MY%'); 
+from tracks
+where ((upper(track_name) like '%MY %') or
+(upper(track_name) like '% MY %') or
+(upper(track_name) like '% MY%'));  
 
 -- ЗАДАНИЕ 3
 -- 1. Количество исполнителей в каждом жанре.
