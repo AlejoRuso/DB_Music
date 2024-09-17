@@ -23,9 +23,11 @@ where musician_name not like ('% %');
 -- 5. Название треков, которые содержат слово «мой» или «my».
 select track_name 
 from tracks
-where ((upper(track_name) like '%MY %') or
+where ((upper(track_name) like 'MY %') or
 (upper(track_name) like '% MY %') or
-(upper(track_name) like '% MY%'));  
+(upper(track_name) like '% MY') or
+(upper(track_name) like 'MY')
+);  
 
 -- ЗАДАНИЕ 3
 -- 1. Количество исполнителей в каждом жанре.
@@ -46,10 +48,15 @@ join tracks on albums.album_id = tracks.album_id
 group by album_name;
 
 -- 4. Все исполнители, которые не выпустили альбомы в 2020 году.
-select musician_name from musicians m
-join musician_album ma on m.musician_id = ma.musician_id
-join albums a on ma.album_id = a.album_id
-where album_year = 2020;
+SELECT musician_name /* Получаем имена исполнителей */
+FROM musicians  /* Из таблицы исполнителей */
+WHERE musician_name NOT IN ( /* Где имя исполнителя не входит в вложенную выборку */
+    SELECT musician_name  /* Получаем имена исполнителей */
+    FROM musicians m /* Из таблицы исполнителей */
+    JOIN musician_album ma on m.musician_id = ma.musician_id /* Объединяем с промежуточной таблицей */
+    JOIN albums a on ma.album_id = a.album_id /* Объединяем с таблицей альбомов */
+    WHERE album_year = 2020 /* Где год альбома равен 2020 */
+);
 
 -- 5. Названия сборников, в которых присутствует конкретный исполнитель (выберите его сами).
 select collection_name from collections c
